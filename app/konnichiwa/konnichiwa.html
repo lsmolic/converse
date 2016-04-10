@@ -1,0 +1,45 @@
+<div ng-app="konnichiwa" ng-controller="KonnichiwaController as konnichiwa">
+    <div class="container">
+        <div class="left-column">
+            Last Message from Chat Partner:
+            <br /><br />
+            <span class="prompt">{{konnichiwa.prompt.text}}</span><span ng-if="konnichiwa.show_translations && konnichiwa.prompt"> - {{konnichiwa.prompt.translation}}</span>
+            <br /><br />
+            <div>
+                <input type="string" ng-model="konnichiwa.response" respond="konnichiwa.respond()" required >
+                <button class="btn" ng-click="konnichiwa.respond()">Respond</button>
+                <button class="btn" ng-click="konnichiwa.reset()">Reset</button>
+                <br /><br />
+                Show Suggestions: <input type="checkbox" ng-model="konnichiwa.show_suggestions"/>
+                Show Translations: <input type="checkbox" ng-model="konnichiwa.show_translations"/>
+            </div>
+            <br />
+            <div class="chat-transcript-container">
+                Transcript:
+                <div class="chat-transcript">
+                    <ul>
+                        <li class="column-item" ng-repeat="chat in konnichiwa.chat_transcript">
+                            <span class="red" ng-show="chat.actor == 'computer'">{{chat.phrase.text}} <span class="red" ng-if="konnichiwa.show_translations"> - {{chat.phrase.translation}}</span></span>
+                            <span class="blue" ng-show="chat.actor == 'user'">{{chat.phrase.text}}<span class="blue" ng-if="konnichiwa.show_translations"> - {{chat.phrase.translation}}</span></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right-column" ng-if="konnichiwa.show_suggestions">
+            <div ng-show="konnichiwa.show_suggestions">
+                <span ng-show="konnichiwa.suggestions.length > 0">Suggested Responses:</span>
+                <span ng-show="konnichiwa.suggestions.length == 0">No Suggested Responses</span>
+                <ul class="suggestions" ng-repeat="suggestion in konnichiwa.suggestions">
+                    <a href="" ng-click="konnichiwa.response = suggestion.text; konnichiwa.suggestionClicked(key, suggestion)">{{suggestion.text}}<span ng-if="konnichiwa.show_translations"> - {{suggestion.translation}}</span></a>
+                </ul>
+            </div>
+            Possible Segues:
+            <ul>
+                <li class="segues" ng-repeat="(key, phrase) in konnichiwa.segue_list">
+                    <a href="" ng-click="konnichiwa.response = phrase.text; konnichiwa.suggestionClicked(key, phrase)">{{phrase.text}}<span ng-if="konnichiwa.show_translations"> - {{phrase.translation}}</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

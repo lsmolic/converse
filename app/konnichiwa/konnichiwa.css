@@ -1,0 +1,56 @@
+
+.prompt{
+    font-weight: normal;
+}
+
+.suggestions{
+    margin-top:20px;
+    margin-left:10px;
+    margin-bottom:20px;
+    line-height: 8px;
+    color: #4590f6;
+    list-style-type: none;
+}
+
+.segues{
+    list-style-type: none;
+    color: #4590f6;
+}
+
+.chat-transcript-container{
+    margin-top: 20px;
+}
+
+.chat-transcript-container ul
+{
+    list-style-type: none;
+}
+
+.chat-transcript{
+    border:1px dashed #000000;
+    margin-left:10px;
+    margin-top:10px;
+}
+
+.left-column{
+    width:50%;
+    float:left;
+}
+.right-column{
+    width:50%;
+    margin-left:50%;
+}
+.column-item{
+    margin-top:1px;
+}
+.clear{
+    clear:both;
+}
+
+.red{
+    color:red;
+}
+
+.blue{
+    color:blue;
+}
