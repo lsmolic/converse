@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('converse.konnichiwa', ['ngRoute','ngSanitize'])
+angular.module('converse.konnichiwa', ['ngRoute','ngSanitize','ngLodash'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
@@ -21,8 +21,7 @@ angular.module('converse.konnichiwa', ['ngRoute','ngSanitize'])
     });
   };
 })
-
-.controller('KonnichiwaController', ['$scope', '$sce', function($scope, $sce, $sanitize) {
+.controller('KonnichiwaController', ['$scope', function($scope) {
   var controller = this;
   controller.response = "";
   controller.suggestions = [];

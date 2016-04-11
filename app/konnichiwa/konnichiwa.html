@@ -28,7 +28,7 @@
                 <span ng-show="konnichiwa.suggestions.length == 0">No Suggested Responses</span>
                 <ul>
                     <li class="suggestions" ng-repeat="suggestion in konnichiwa.suggestions" >
-                        <a href="" ng-click="konnichiwa.response = suggestion.text; konnichiwa.suggestionClicked(key, suggestion)"><span ng-bind-html="konnichiwa.convertToFurigana(suggestion.text)">{{suggestion.text}}</span></a><span ng-if="konnichiwa.show_translations"> - {{suggestion.translation}}</span>
+                        <a href="" ng-click="konnichiwa.response = suggestion.text; konnichiwa.suggestionClicked(key, suggestion)"><span ng-bind-html="konnichiwa.convertToFurigana(suggestion.text)">{{konnichiwa.convertToFurigana(suggestion.text)}}</span></a><span ng-if="konnichiwa.show_translations"> - {{suggestion.translation}}</span>
                     </li>
                 </ul>
             </div>

@@ -12,6 +12,7 @@
     "angular-sanitize": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "html5-boilerplate": "~5.2.0",
-    "kuroshiro": "0.1.1"
+    "kuroshiro": "0.1.1",
+    "lodash": "4.10.0"
   }
 }
