@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('converse.konnichiwa', ['ngRoute'])
+angular.module('converse.konnichiwa', ['ngRoute','ngSanitize'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
@@ -22,7 +22,7 @@ angular.module('converse.konnichiwa', ['ngRoute'])
   };
 })
 
-.controller('KonnichiwaController', function($scope) {
+.controller('KonnichiwaController', ['$scope', '$sce', function($scope, $sce, $sanitize) {
   var controller = this;
   controller.response = "";
   controller.suggestions = [];
@@ -31,6 +31,8 @@ angular.module('converse.konnichiwa', ['ngRoute'])
   controller.show_translations = true;
   controller.show_suggestions = true;
   controller.chat_transcript = [];
+  controller.kuroshiro_is_ready = false;
+  controller.show_furigana = true;
 
   controller.createPhraseIndex = function(){
     controller.phrase_index = [];
@@ -373,6 +375,19 @@ angular.module('converse.konnichiwa', ['ngRoute'])
     return controller.phrases[phrase_path[0]][phrase_path[1]];
   };
 
+  controller.removePhraseFromSegueList = function(phrase){
+    // if the phrase has reached it's max usage, remove from segue list
+    // THIS MUST HAPPEN AFTER THE COMPUTER RESPONDS TO CALCULATE USAGE
+    if (phrase.usage == phrase.max_usage){
+      _.each(controller.segue_list, function(segue, index){
+        if (segue.id == phrase.id){
+          controller.segue_list.splice(index, 1);
+          return false;
+        }
+      });
+    }
+  }
+
   controller.respond = function() {
     var user_response = controller.identifyUserResponse();
 
@@ -388,6 +403,8 @@ angular.module('converse.konnichiwa', ['ngRoute'])
         // if a user's response has no possible computer responses, is there a segue?
         controller.determineAcceptableUserSegue(user_response);
       }
+
+      controller.removePhraseFromSegueList(user_response);
     }else{
       // This was not an expected response
 
@@ -416,6 +433,11 @@ angular.module('converse.konnichiwa', ['ngRoute'])
           controller.respondWith(null);
         }
 
+        // if the phrase has reached it's max usage, remove from segue list
+        // THIS MUST HAPPEN AFTER THE COMPUTER RESPONDS TO CALCULATE USAGE
+        //user_phrase.usage += 1;
+        controller.removePhraseFromSegueList(user_phrase);
+
       }else{
         // Otherwise "we don't understand"
         console.log("No response");
@@ -423,6 +445,14 @@ angular.module('converse.konnichiwa', ['ngRoute'])
       }
     }
     controller.clearUserResponse();
+  };
+
+  controller.convertToFurigana = function(text){
+    if(controller.kuroshiro_is_ready && controller.show_furigana){
+      var converted = kuroshiro.convert(text,{to:"hiragana",mode:"furigana"});
+      return converted;
+    }
+    return text;
   };
 
   controller.reset = function() {
@@ -434,7 +464,12 @@ angular.module('converse.konnichiwa', ['ngRoute'])
     controller.clearUserResponse();
   };
 
+  kuroshiro.init(function(err){
+    controller.kuroshiro_is_ready = true;
+    $scope.$apply();
+  });
 
   controller.reset();
 
-});
+
+}]);
