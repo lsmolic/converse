@@ -4,7 +4,7 @@ angular.module('converse.konnichiwa', ['ngRoute','ngSanitize','ngLodash'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
-    templateUrl: 'konnichiwa/konnichiwa.html',
+    templateUrl: 'components/konnichiwa/konnichiwa.html',
     controller: 'KonnichiwaController'
   });
 }])

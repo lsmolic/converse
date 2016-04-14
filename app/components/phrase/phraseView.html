@@ -1,0 +1,5 @@
+<div class="chat chat-{{chat.actor}}" ng-repeat="chat in konnichiwa.chat_transcript">
+    <span ng-bind-html="konnichiwa.convertToFurigana(chat.phrase.text)">{{chat.phrase.text}}</span>
+    <span class="red" ng-if="konnichiwa.show_translations"> - {{chat.phrase.translation}}</span>
+</div>
+

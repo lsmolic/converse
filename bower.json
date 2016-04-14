@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
+  "name": "Converse",
   "description": "A starter project for AngularJS",
   "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "homepage": "https://github.com/lsmolic/converse",
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -13,6 +13,6 @@
     "angular-mocks": "~1.4.0",
     "html5-boilerplate": "~5.2.0",
     "kuroshiro": "0.1.1",
-    "lodash": "4.10.0"
+    "ng-lodash": "0.4.0"
   }
 }
